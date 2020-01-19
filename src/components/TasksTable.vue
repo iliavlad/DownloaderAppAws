@@ -54,16 +54,13 @@ export default {
         .then(response => {
           this.tasks = response.data.data;
           this.tasksStatus = (0 === this.tasks.length) ? 'No tasks' : ('Task count: ' + this.tasks.length);
-//          console.log(this.tasks);
         })
         .catch(error => {
-//          console.log(error);
           this.tasksstatus = error.response.data.message || error.message;
         });
     },
     getLocalPath: function (path) {
-//      console.log((!path) ? '' : (this.tasksUrl + '/' . path));
-      return (!path) ? '' : (this.tasksUrl + '/' + path);
+      return (!path) ? '' : (this.tasksUrl + path);
     }
   }
 }
