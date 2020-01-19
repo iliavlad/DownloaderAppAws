@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <TasksTable />
+    <TasksTable tasksUrl="https://downloaderapp.test-the.tech"/>
   </div>
 </template>
 

@@ -2,14 +2,14 @@
   <div>
     <h1>Tasks</h1>
     <h2>Task List</h2>
-    <p id="tasksstatus">{{ tasksstatus }}</p>
+    <p id="tasksstatus">{{ tasksStatus }}</p>
     <table v-if="tasks && tasks.length > 0">
       <tr>
         <th>Id</th>
         <th>Url</th>
         <th>Status</th>
         <th>Added by</th>
-        <th>Local path</th>
+        <th>Local path (on {{ tasksUrl }})</th>
         <th>Created at</th>
         <th>Updated at</th>
       </tr>
@@ -18,7 +18,7 @@
         <td>{{ task.url }}</td>
         <td>{{ task.status }}</td>
         <td>{{ task.added_by }}</td>
-        <td>{{ task.local_path }}</td>
+        <td><a :href="getLocalPath(task.local_path)">{{ task.local_path }}</a></td>
         <td>{{ task.created_at }}</td>
         <td>{{ task.updated_at }}</td>
       </tr>
@@ -31,12 +31,15 @@ import axios from 'axios'
 
 export default {
   name: 'TasksTable',
+  props: {
+    tasksUrl: String
+  },
   components: {
   },
   data() {
     return {
       tasks: null,
-      tasksstatus: null
+      tasksStatus: null
     }
   },
   created() {
@@ -44,19 +47,23 @@ export default {
   },
   methods: {
     fetchData() {
-      this.tasksstatus = 'Downloading task list...';
+      this.tasksStatus = 'Downloading task list...';
       this.tasks = null;
       axios
-        .get('https://downloaderapp.test-the.tech/api/')
+        .get(this.tasksUrl + '/api/')
         .then(response => {
           this.tasks = response.data.data;
-          this.tasksstatus = (0 == this.tasks.length) ? 'No tasks' : ('Task count: ' + this.tasks.length);
+          this.tasksStatus = (0 === this.tasks.length) ? 'No tasks' : ('Task count: ' + this.tasks.length);
 //          console.log(this.tasks);
         })
         .catch(error => {
 //          console.log(error);
           this.tasksstatus = error.response.data.message || error.message;
         });
+    },
+    getLocalPath: function (path) {
+//      console.log((!path) ? '' : (this.tasksUrl + '/' . path));
+      return (!path) ? '' : (this.tasksUrl + '/' + path);
     }
   }
 }

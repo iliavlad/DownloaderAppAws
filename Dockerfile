@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN yarn install
 COPY ./ .
-RUN yarn run build
+RUN yarn run build --mode development
 
 FROM nginx as production-stage
 RUN mkdir /app
