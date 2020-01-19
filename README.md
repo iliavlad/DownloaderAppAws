@@ -1,24 +1,7 @@
-# downloaderappaws
+## About DownloaderAppAws
 
-## Project setup
-```
-yarn install
-```
+DownloaderAppAws is a VueJs app to test an api of the DownloaderApp
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+###Description
 
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+See https://github.com/iliavlad/DownloaderApp
